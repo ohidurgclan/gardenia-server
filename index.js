@@ -19,8 +19,8 @@ async function run() {
         await client.connect();
         const database = client.db('gardenia');
         const productCollection = database.collection('products');
+        const userReview = database.collection('reviews');
         // const userCollection = database.collection('users');
-        // const userReview = database.collection('user_review');
         // const userOrder = database.collection('user_order');
 
         // Get Products API
@@ -28,6 +28,11 @@ async function run() {
             const cursor = productCollection.find({});
             const packages = await cursor.toArray();
             res.send(packages);
+        });
+        app.get('/happyreview', async (req, res) => {
+            const cursor = userReview.find({});
+            const reviews = await cursor.toArray();
+            res.send(reviews);
         });
     }
     finally {
